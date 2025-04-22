@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -105,6 +106,37 @@ public class ContactBook {
             System.out.println(contact);
         }
     }
+
+    public void saveToFIle(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
+            for(Contact contact: contacts) {
+                writer.write(contact.getName()+ ";" + contact.getPhoneNumber() + ";" + contact.getEmail() + ";" + contact.getAddress());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving contacts...");
+        }
+    }
+
+    public void loadFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))){
+            String line;
+            while((line = reader.readLine()) !=null){
+                String[] parts = line.split(";");
+                if(parts.length == 4) {
+                    Contact contact = new Contact(parts[0], parts[1], parts[2], parts[3]);
+                    contacts.add(contact);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File does not exists!");
+        } catch (IOException e) {
+            System.out.println("Something went wrong!");
+        }
+    }
+
+
+
 
 
 

@@ -7,8 +7,8 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ContactBook contactBook = new ContactBook();
         boolean exit = false;
-
-
+        String filename = "Contacts.txt";
+        contactBook.loadFromFile(filename);
 
         while(!exit) {
             System.out.println("***************************************");
@@ -72,6 +72,7 @@ public class Main {
 
                 case 6 -> {
                     System.out.println("Thank you!");
+                    contactBook.saveToFIle(filename);
                     exit = true;
                 }
                 default -> System.out.println("Invalid choice");
